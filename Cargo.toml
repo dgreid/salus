@@ -38,5 +38,7 @@ test_workloads = { path = "./test-workloads" }
 [workspace]
 
 members = [
+	"libuser",
+	"memcpy",
         "test-workloads",
 ]
