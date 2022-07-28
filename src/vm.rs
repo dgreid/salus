@@ -853,6 +853,7 @@ impl<T: GuestStagePagingMode> Vm<T, VmStateFinalized> {
                 active_vcpu,
             ),
             ReadFirmwareCounter(_) => Err(EcallError::Sbi(SbiError::NotSupported)),
+            SbiMessage::RivosTest(test_function) => self.handle_test(test_function, active_pages),
         }
     }
 
@@ -1004,6 +1005,15 @@ impl<T: GuestStagePagingMode> Vm<T, VmStateFinalized> {
                 .guest_add_shared_pages(guest_id, page_addr, page_type, num_pages, guest_addr)
                 .into(),
         }
+    }
+
+    fn handle_test(
+        &self,
+        _test_func: RivosTestFunction,
+        _active_pages: &ActiveVmPages<T>,
+    ) -> EcallAction {
+        // TODO
+        EcallAction::Unhandled
     }
 
     fn handle_attestation_msg(

@@ -22,6 +22,9 @@ pub use base::*;
 // The reset SBI extension
 mod reset;
 pub use reset::*;
+// The rivos-specific test extension
+mod rivos_test;
+pub use rivos_test::*;
 // The State SBI extension
 mod state;
 pub use state::*;
@@ -116,6 +119,8 @@ pub enum SbiMessage {
     TeeAia(TeeAiaFunction),
     /// The extension for getting performance counter state.
     Pmu(PmuFunction),
+    /// Tests run by Tellus
+    RivosTest(RivosTestFunction),
 }
 
 impl SbiMessage {
@@ -132,6 +137,7 @@ impl SbiMessage {
             EXT_ATTESTATION => AttestationFunction::from_regs(args).map(SbiMessage::Attestation),
             EXT_TEE_AIA => TeeAiaFunction::from_regs(args).map(SbiMessage::TeeAia),
             EXT_PMU => PmuFunction::from_regs(args).map(SbiMessage::Pmu),
+            EXT_RIVOS_TEST => RivosTestFunction::from_regs(args).map(SbiMessage::RivosTest),
             _ => Err(Error::NotSupported),
         }
     }
@@ -147,6 +153,7 @@ impl SbiMessage {
             SbiMessage::Attestation(_) => EXT_ATTESTATION,
             SbiMessage::TeeAia(_) => EXT_TEE_AIA,
             SbiMessage::Pmu(_) => EXT_PMU,
+            SbiMessage::RivosTest(_) => EXT_RIVOS_TEST,
         }
     }
 
@@ -161,6 +168,7 @@ impl SbiMessage {
             SbiMessage::Attestation(f) => f.a6(),
             SbiMessage::TeeAia(f) => f.a6(),
             SbiMessage::Pmu(f) => f.a6(),
+            SbiMessage::RivosTest(f) => f.a6(),
         }
     }
 
@@ -205,6 +213,7 @@ impl SbiMessage {
             SbiMessage::Attestation(f) => f.a2(),
             SbiMessage::Pmu(f) => f.a2(),
             SbiMessage::TeeAia(f) => f.a2(),
+            SbiMessage::RivosTest(f) => f.a2(),
             _ => 0,
         }
     }
@@ -218,6 +227,7 @@ impl SbiMessage {
             SbiMessage::Attestation(f) => f.a1(),
             SbiMessage::TeeAia(f) => f.a1(),
             SbiMessage::Pmu(f) => f.a1(),
+            SbiMessage::RivosTest(f) => f.a1(),
             _ => 0,
         }
     }
@@ -232,6 +242,7 @@ impl SbiMessage {
             SbiMessage::Attestation(f) => f.a0(),
             SbiMessage::TeeAia(f) => f.a0(),
             SbiMessage::Pmu(f) => f.a0(),
+            SbiMessage::RivosTest(f) => f.a0(),
             _ => 0,
         }
     }
