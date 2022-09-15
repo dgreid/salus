@@ -93,9 +93,9 @@ guestvm:
 tellus: guestvm
 	cargo build $(CARGO_FLAGS) --package test_workloads --bin tellus --release
 
-.PHONY: memcpy
-memcpy:
-	RUSTFLAGS='-Clink-arg=-Tlds/umode.lds' cargo build --package memcpy
+.PHONY: umode
+umode:
+	RUSTFLAGS='-Clink-arg=-Tlds/umode.lds' cargo build --package umode
 
 # Runnable targets:
 #
