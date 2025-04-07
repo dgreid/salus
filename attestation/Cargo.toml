@@ -1,0 +1,27 @@
+# SPDX-FileCopyrightText: 2023 Rivos Inc.
+#
+# SPDX-License-Identifier: Apache-2.0
+
+[package]
+name = "attestation"
+authors = ["Rivos, Inc."]
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+arrayvec = { version = "0.7.2", default-features = false }
+const-oid = { version = "0.9.0", features = ["db"] }
+der = { version = "0.7.9", features = ["derive", "flagset", "oid"] }
+digest = { version = "0.10.7", default-features = false }
+ed25519 = { version = "2.2.3", default-features = false, features = ["pkcs8"] }
+ed25519-dalek = { version = "2.1.1", default-features = false }
+flagset = "0.4.3"
+generic-array = "0.14.7"
+hex = { version = "0.4.3", default-features = false }
+hkdf = "0.12.4"
+hmac = "0.12.1"
+rice = { path = "..//rice" }
+sbi_rs = { path = "../sbi-rs" }
+sync = { path = "../sync" }
+spki = "0.7.3"
+typenum = "1.15.0"
