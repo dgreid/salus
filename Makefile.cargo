@@ -98,7 +98,7 @@ guestvm: sbirs
 
 .PHONY: tellus
 tellus: guestvm sbirs
-	cargo build $(CARGO_FLAGS) --package test_workloads --bin tellus --release
+	RUSTFLAGS='-Ctarget-feature=+v -Clink-arg=-Tlds/qemu.lds' cargo build $(CARGO_FLAGS) --package test_workloads --bin tellus --release
 
 .PHONY: umode
 umode: sbirs
