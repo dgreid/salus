@@ -94,7 +94,7 @@ tellus_bin: tellus
 	./create_guest_image.sh tellus_raw guestvm_raw tellus_guestvm
 
 guestvm: sbirs
-	RUSTFLAGS='-Ctarget-feature=+v -Clink-arg=-Tlds/guest.lds' cargo build $(CARGO_FLAGS) --package test_workloads --release --bin guestvm
+	RUSTFLAGS='-Ctarget-feature=-v -Clink-arg=-Tlds/guest.lds' cargo build $(CARGO_FLAGS) --package test_workloads --release --bin guestvm
 
 .PHONY: tellus
 tellus: guestvm sbirs
